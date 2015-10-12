@@ -1,0 +1,1 @@
+select * from sys.service_message_types;

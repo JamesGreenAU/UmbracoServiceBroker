@@ -25,6 +25,12 @@
           <AssociatedConnUserName />
           <FullPath>Setup.sql</FullPath>
         </FileNode>
+        <FileNode Name="Remove.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>Remove.sql</FullPath>
+        </FileNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
