@@ -8,11 +8,12 @@ UmbracoWeb/config/backup/*.backup
 UmbracoWeb/App_Data/umbraco.config
 
 # Visual Studio
-.vs/*
+.vs/**/*
 *.user
 */obj/**/*
 */bin/**/*
 *.suo
+*.ssms_suo
 
 # Windows image file caches
 Thumbs.db
@@ -58,3 +59,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 .vs/UmbracoServiceBroker/v14/.suo
+*.suo
+*.ssms_suo
