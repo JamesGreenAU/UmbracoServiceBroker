@@ -1,3 +1,19 @@
+# Umbraco
+UmbracoWeb/App_Data/Preview/*
+UmbracoWeb/App_Data/Logs/*
+UmbracoWeb/App_Data/TEMP/*
+UmbracoWeb/App_Data/cache/**/*
+UmbracoWeb/App_Data/NuGetBackup/**/*
+UmbracoWeb/config/backup/*.backup
+UmbracoWeb/App_Data/umbraco.config
+
+# Visual Studio
+.vs/*
+*.user
+*/obj/**/*
+*/bin/**/*
+*.suo
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
