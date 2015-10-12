@@ -19,17 +19,23 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="Setup.sql">
+        <FileNode Name="01-Setup-broker.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>Setup.sql</FullPath>
+          <FullPath>01-Setup-broker.sql</FullPath>
         </FileNode>
-        <FileNode Name="Remove.sql">
+        <FileNode Name="03-Remove-all.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>Remove.sql</FullPath>
+          <FullPath>03-Remove-all.sql</FullPath>
+        </FileNode>
+        <FileNode Name="02-Setup-sprocs.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>02-Setup-sprocs.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
