@@ -269,6 +269,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentQueue.cs" />
+    <Compile Include="MediaQueue.cs" />
+    <Compile Include="MemberQueue.cs" />
     <Compile Include="ServiceBrokerAppEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
