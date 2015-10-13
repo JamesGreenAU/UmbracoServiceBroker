@@ -25,27 +25,33 @@ namespace ServiceBroker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void MediaService_Created(IMediaService sender, NewEventArgs<IMedia> e)
+        public void MediaService_Saved(IMediaService sender, SaveEventArgs<IMedia> e)
         {
-            string Resource = e.Entity.Name;
-
             if (connection.State != ConnectionState.Open)
             {
                 connection.Open();
             }
 
-            SqlTransaction tran = connection.BeginTransaction();
-            var command = new SqlCommand("dbo.[RequestCdnPolicyOnResource]", connection, tran);
-            command.CommandType = CommandType.StoredProcedure;
+            string Resource;
+            foreach (var item in e.SavedEntities)
+            {
+                if (item.ContentType.Alias == "Image")
+                {
+                    Resource = (string)item.Properties["umbracoFile"].Value;
+                    SqlTransaction tran = connection.BeginTransaction();
+                    var command = new SqlCommand("dbo.[RequestCdnPolicyOnResource]", connection, tran);
+                    command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.Add("@resource", SqlDbType.NVarChar, 256);
-            command.Parameters["@resource"].Value = Resource;
+                    command.Parameters.Add("@resource", SqlDbType.NVarChar, 256);
+                    command.Parameters["@resource"].Value = Resource;
 
-            command.Parameters.Add("@ConversationHandle", SqlDbType.UniqueIdentifier);
-            command.Parameters["@ConversationHandle"].Direction = ParameterDirection.Output;
+                    command.Parameters.Add("@ConversationHandle", SqlDbType.UniqueIdentifier);
+                    command.Parameters["@ConversationHandle"].Direction = ParameterDirection.Output;
 
-            command.ExecuteNonQuery();
-            tran.Commit();
+                    command.ExecuteNonQuery();
+                    tran.Commit();
+                }
+            }
         }
 
         /// <summary>
@@ -55,15 +61,15 @@ namespace ServiceBroker
         /// <param name="e"></param>
         public void MediaService_Deleted(IMediaService sender, DeleteEventArgs<IMedia> e)
         {
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+
             foreach (var item in e.DeletedEntities)
             {
                 string Resource = item.Name;
                 
-                if (connection.State != ConnectionState.Open)
-                {
-                    connection.Open();
-                }
-
                 SqlTransaction tran = connection.BeginTransaction();
                 var command = new SqlCommand("dbo.[RequestCdnResourceInvalidation]", connection, tran);
                 command.CommandType = CommandType.StoredProcedure;

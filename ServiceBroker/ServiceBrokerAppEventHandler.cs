@@ -41,7 +41,7 @@ namespace ServiceBroker
             ContentService.Saved += contentQueue.ContentService_Saved;
 
             var mediaQueue = new MediaQueue(queueConnection);
-            MediaService.Created += mediaQueue.MediaService_Created;
+            MediaService.Saved += mediaQueue.MediaService_Saved;
             MediaService.Deleted += mediaQueue.MediaService_Deleted;
 
             var memberQueue = new MemberQueue(queueConnection);
@@ -49,5 +49,6 @@ namespace ServiceBroker
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }
+
     }
 }
