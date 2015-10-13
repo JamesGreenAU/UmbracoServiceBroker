@@ -25,35 +25,11 @@
           <AssociatedConnUserName />
           <FullPath>CleanTransmissionQueue.sql</FullPath>
         </FileNode>
-        <FileNode Name="LoopReceive.sql">
+        <FileNode Name="ServiceBrokerViews.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>LoopReceive.sql</FullPath>
-        </FileNode>
-        <FileNode Name="MessageTypes.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
-          <AssociatedConnUserName />
-          <FullPath>MessageTypes.sql</FullPath>
-        </FileNode>
-        <FileNode Name="SBViews.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
-          <AssociatedConnUserName />
-          <FullPath>SBViews.sql</FullPath>
-        </FileNode>
-        <FileNode Name="scraps.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
-          <AssociatedConnUserName />
-          <FullPath>scraps.sql</FullPath>
-        </FileNode>
-        <FileNode Name="TestSend.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local)\sqlexpress:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>(local)\sqlexpress</AssociatedConnSrvName>
-          <AssociatedConnUserName />
-          <FullPath>TestSend.sql</FullPath>
+          <FullPath>ServiceBrokerViews.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
