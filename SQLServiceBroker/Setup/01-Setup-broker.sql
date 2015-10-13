@@ -47,12 +47,12 @@ GO
 
 CREATE SERVICE [//Member/Email/WelcomePack]
 	AUTHORIZATION dbo
-	ON QUEUE [ContentQueue]
+	ON QUEUE [MemberQueue]
 		( [//Member/Email/WelcomePackContract] );
 GO
 
 CREATE SERVICE [//Email/SendAgent]
 	AUTHORIZATION dbo
-	ON QUEUE [ContentQueue]
+	ON QUEUE [MemberQueue]
 		( [//Member/Email/WelcomePackContract] );
 GO
