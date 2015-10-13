@@ -25,9 +25,13 @@ namespace ConsoleQueueReader
                 conn.Open();
             }
 
-            ProcessContentQueue(conn);
-            ProcessMemberQueue(conn);
-            ProcessMediaQueue(conn);
+            bool running = true;
+            while (running)
+            {
+                ProcessContentQueue(conn);
+                ProcessMemberQueue(conn);
+                ProcessMediaQueue(conn);
+            }
 
             conn.Close();
 
