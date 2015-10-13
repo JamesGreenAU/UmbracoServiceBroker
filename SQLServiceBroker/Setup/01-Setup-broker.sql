@@ -56,3 +56,53 @@ CREATE SERVICE [//Email/SendAgent]
 	ON QUEUE [MemberQueue]
 		( [//Member/Email/WelcomePackContract] );
 GO
+
+
+-- Media Queue DDL
+
+CREATE QUEUE [MediaQueue];
+GO
+
+-- CDN Invalidation
+CREATE MESSAGE TYPE [//Media/Cdn/SetInvalidationMessage]
+	AUTHORIZATION dbo
+	VALIDATION = NONE
+GO
+
+CREATE CONTRACT [//Media/Cdn/SetInvalidationContract]
+	( [//Media/Cdn/SetInvalidationMessage] SENT BY ANY )
+GO
+
+CREATE SERVICE [//Media/Cdn/SetInvalidation]
+	AUTHORIZATION dbo
+	ON QUEUE [MemberQueue]
+		( [//Media/Cdn/SetInvalidationContract] );
+GO
+
+CREATE SERVICE [//Cdn/InvalidationAgent]
+	AUTHORIZATION dbo
+	ON QUEUE [MemberQueue]
+		( [//Media/Cdn/SetInvalidationContract] );
+GO
+
+-- CDN Set Policy
+CREATE MESSAGE TYPE [//Media/Cdn/SetPolicyMessage]
+	AUTHORIZATION dbo
+	VALIDATION = NONE
+GO
+
+CREATE CONTRACT [//Media/Cdn/SetPolicyContract]
+	( [//Media/Cdn/SetPolicyMessage] SENT BY ANY )
+GO
+
+CREATE SERVICE [//Media/Cdn/SetPolicy]
+	AUTHORIZATION dbo
+	ON QUEUE [MemberQueue]
+		( [//Media/Cdn/SetPolicyContract] );
+GO
+
+CREATE SERVICE [//Cdn/PolicyAgent]
+	AUTHORIZATION dbo
+	ON QUEUE [MemberQueue]
+		( [//Media/Cdn/SetPolicyContract] );
+GO
