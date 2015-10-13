@@ -1,3 +1,0 @@
-RECEIVE * FROM umbracocms ;
-
-
