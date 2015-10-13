@@ -5,26 +5,54 @@ ALTER DATABASE msdb SET ENABLE_BROKER;
 ALTER DATABASE CURRENT SET NEW_BROKER  WITH ROLLBACK IMMEDIATE; -- Use ENABLE_BROKER if restoring db
 GO
 
-CREATE QUEUE [umbracocms]
+-- Content Queue DDL
+
+CREATE QUEUE [ContentQueue]
 GO
 
-CREATE MESSAGE TYPE [//UmbracoSB/Blog/index_related_content_message] 
-AUTHORIZATION dbo 
-VALIDATION = NONE
+CREATE MESSAGE TYPE [//Recommendations/UpdateBlogPostMessage]
+	AUTHORIZATION dbo
+	VALIDATION = NONE
 GO
 
-CREATE CONTRACT [//UmbracoSB/Blog/blog_index_contract]
-  ( [//UmbracoSB/Blog/index_related_content_message] SENT BY ANY )
+CREATE CONTRACT [//Content/Blog/UpdateRecommendationContract]
+	( [//Recommendations/UpdateBlogPostMessage] SENT BY ANY )
 GO
 
-CREATE SERVICE [//UmbracoSB/umbraco_cms_service] 
-AUTHORIZATION dbo 
-ON QUEUE umbracocms	
-	([//UmbracoSB/Blog/blog_index_contract]);
+CREATE SERVICE [//Content/Blog/UpdateRecommendation]
+	AUTHORIZATION dbo
+	ON QUEUE [ContentQueue]
+		(  [//Content/Blog/UpdateRecommendationContract] );
 GO
 
-CREATE SERVICE [//UmbracoSB/index_service]
-AUTHORIZATION dbo
-ON QUEUE umbracocms
-	( [//UmbracoSB/Blog/blog_index_contract] )
+CREATE SERVICE [//Recommendation/Blog/Update]
+	AUTHORIZATION dbo
+	ON QUEUE [ContentQueue]
+		(  [//Content/Blog/UpdateRecommendationContract] );
+GO
+
+-- Member Queue DDL
+
+CREATE QUEUE [MemberQueue];
+GO
+
+CREATE MESSAGE TYPE [//Member/Email/WelcomePackMessage]
+	AUTHORIZATION dbo
+	VALIDATION = NONE
+GO
+
+CREATE CONTRACT [//Member/Email/WelcomePackContract]
+	( [//Member/Email/WelcomePackMessage] SENT BY ANY )
+GO
+
+CREATE SERVICE [//Member/Email/WelcomePack]
+	AUTHORIZATION dbo
+	ON QUEUE [ContentQueue]
+		( [//Member/Email/WelcomePackContract] );
+GO
+
+CREATE SERVICE [//Email/SendAgent]
+	AUTHORIZATION dbo
+	ON QUEUE [ContentQueue]
+		( [//Member/Email/WelcomePackContract] );
 GO
