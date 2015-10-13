@@ -49,3 +49,39 @@ GO
 
 DROP QUEUE [MemberQueue];
 GO
+
+-- Media Queue Procs
+
+DROP PROC dbo.ReadFromMediaQueue
+GO
+
+-- Media Queue DDL
+
+-- CDN Policy
+DROP SERVICE [//Media/Cdn/SetPolicy]
+GO
+
+DROP SERVICE [//Cdn/PolicyAgent]
+GO
+
+DROP CONTRACT [//Media/Cdn/SetPolicyContract]
+GO
+
+DROP MESSAGE TYPE [//Media/Cdn/SetPolicyMessage]
+GO
+
+-- CDN Invalidation
+DROP SERVICE [//Cdn/InvalidationAgent]
+GO
+
+DROP CONTRACT [//Media/Cdn/SetInvalidationContract]
+GO
+
+DROP SERVICE [//Media/Cdn/SetInvalidation]
+GO
+
+DROP MESSAGE TYPE [//Media/Cdn/SetInvalidationMessage]
+GO
+
+DROP QUEUE [MediaQueue];
+GO
