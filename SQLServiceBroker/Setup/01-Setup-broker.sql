@@ -75,13 +75,13 @@ GO
 
 CREATE SERVICE [//Media/Cdn/SetInvalidation]
 	AUTHORIZATION dbo
-	ON QUEUE [MemberQueue]
+	ON QUEUE [MediaQueue]
 		( [//Media/Cdn/SetInvalidationContract] );
 GO
 
 CREATE SERVICE [//Cdn/InvalidationAgent]
 	AUTHORIZATION dbo
-	ON QUEUE [MemberQueue]
+	ON QUEUE [MediaQueue]
 		( [//Media/Cdn/SetInvalidationContract] );
 GO
 
@@ -97,12 +97,12 @@ GO
 
 CREATE SERVICE [//Media/Cdn/SetPolicy]
 	AUTHORIZATION dbo
-	ON QUEUE [MemberQueue]
+	ON QUEUE [MediaQueue]
 		( [//Media/Cdn/SetPolicyContract] );
 GO
 
 CREATE SERVICE [//Cdn/PolicyAgent]
 	AUTHORIZATION dbo
-	ON QUEUE [MemberQueue]
+	ON QUEUE [MediaQueue]
 		( [//Media/Cdn/SetPolicyContract] );
 GO
