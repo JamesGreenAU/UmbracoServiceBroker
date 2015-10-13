@@ -4,8 +4,9 @@ UmbracoWeb/App_Data/Logs/*
 UmbracoWeb/App_Data/TEMP/*
 UmbracoWeb/App_Data/cache/**/*
 UmbracoWeb/App_Data/NuGetBackup/**/*
-UmbracoWeb/config/backup/*.backup
 UmbracoWeb/App_Data/umbraco.config
+UmbracoWeb/config/backup/*.backup
+UmbracoWeb/Media/**/*
 
 # Visual Studio
 .vs/**/*
