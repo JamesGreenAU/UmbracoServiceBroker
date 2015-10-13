@@ -27,6 +27,8 @@ GO
 DROP QUEUE [ContentQueue]
 GO
 
+DROP XML SCHEMA COLLECTION UpdateBlogPostMessageSchema;
+
 -- Member Queue Procs
 DROP PROC dbo.SendMemberWelcomePack
 GO
@@ -45,6 +47,9 @@ DROP CONTRACT [//Member/Email/WelcomePackContract]
 GO
 
 DROP MESSAGE TYPE [//Member/Email/WelcomePackMessage]
+GO
+
+DROP XML SCHEMA COLLECTION WelcomePackMessageSchema;
 GO
 
 DROP QUEUE [MemberQueue];
@@ -73,9 +78,6 @@ GO
 DROP CONTRACT [//Media/Cdn/SetPolicyContract]
 GO
 
-DROP MESSAGE TYPE [//Media/Cdn/SetPolicyMessage]
-GO
-
 -- CDN Invalidation
 DROP SERVICE [//Cdn/InvalidationAgent]
 GO
@@ -86,8 +88,14 @@ GO
 DROP CONTRACT [//Media/Cdn/SetInvalidationContract]
 GO
 
+DROP MESSAGE TYPE [//Media/Cdn/SetPolicyMessage]
+GO
+
 DROP MESSAGE TYPE [//Media/Cdn/SetInvalidationMessage]
 GO
 
+DROP XML SCHEMA COLLECTION CdnMessageSchema;
+GO
 DROP QUEUE [MediaQueue];
 GO
+

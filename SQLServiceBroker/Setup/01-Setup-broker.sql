@@ -10,9 +10,23 @@ GO
 CREATE QUEUE [ContentQueue]
 GO
 
+CREATE XML SCHEMA COLLECTION UpdateBlogPostMessageSchema AS
+N'<?xml version="1.0" encoding="UTF-16" ?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="request">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="nodeType"/>
+        <xs:element type="xs:string" name="summary"/>
+        <xs:element type="xs:int" name="nodeId"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>';
+
 CREATE MESSAGE TYPE [//Recommendations/UpdateBlogPostMessage]
 	AUTHORIZATION dbo
-	VALIDATION = NONE
+	VALIDATION = VALID_XML WITH SCHEMA COLLECTION UpdateBlogPostMessageSchema;
 GO
 
 CREATE CONTRACT [//Content/Blog/UpdateRecommendationContract]
@@ -36,9 +50,22 @@ GO
 CREATE QUEUE [MemberQueue];
 GO
 
+CREATE XML SCHEMA COLLECTION WelcomePackMessageSchema AS
+N'<?xml version="1.0" encoding="UTF-16" ?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="request">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="name"/>
+        <xs:element type="xs:string" name="email"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>';
+
 CREATE MESSAGE TYPE [//Member/Email/WelcomePackMessage]
 	AUTHORIZATION dbo
-	VALIDATION = NONE
+	VALIDATION = VALID_XML WITH SCHEMA COLLECTION WelcomePackMessageSchema;
 GO
 
 CREATE CONTRACT [//Member/Email/WelcomePackContract]
@@ -57,16 +84,28 @@ CREATE SERVICE [//Email/SendAgent]
 		( [//Member/Email/WelcomePackContract] );
 GO
 
-
+--**
 -- Media Queue DDL
 
 CREATE QUEUE [MediaQueue];
 GO
 
+CREATE XML SCHEMA COLLECTION CdnMessageSchema AS
+N'<?xml version="1.0" encoding="UTF-16" ?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="request">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="resource"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>';
+
 -- CDN Invalidation
 CREATE MESSAGE TYPE [//Media/Cdn/SetInvalidationMessage]
 	AUTHORIZATION dbo
-	VALIDATION = NONE
+	VALIDATION = VALID_XML WITH SCHEMA COLLECTION CdnMessageSchema;
 GO
 
 CREATE CONTRACT [//Media/Cdn/SetInvalidationContract]
@@ -88,7 +127,7 @@ GO
 -- CDN Set Policy
 CREATE MESSAGE TYPE [//Media/Cdn/SetPolicyMessage]
 	AUTHORIZATION dbo
-	VALIDATION = NONE
+	VALIDATION = VALID_XML WITH SCHEMA COLLECTION CdnMessageSchema;
 GO
 
 CREATE CONTRACT [//Media/Cdn/SetPolicyContract]
