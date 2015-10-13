@@ -1,6 +1,7 @@
 ﻿using ServiceBroker;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -11,14 +12,13 @@ namespace ConsoleQueueReader
 {
     class Program
     {
-        internal static string ConnectionString = @"Data Source=localhost\sqlexpress;Initial Catalog=UmbracoServiceBroker;Integrated Security=True;";
-        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            string ConnectionString = ConfigurationManager.ConnectionStrings["UmbracoCMS"].ConnectionString;
             var conn = new SqlConnection(ConnectionString);
             if (conn.State != System.Data.ConnectionState.Open)
             {
