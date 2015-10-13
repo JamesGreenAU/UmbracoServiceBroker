@@ -80,10 +80,10 @@ GO
 DROP SERVICE [//Cdn/InvalidationAgent]
 GO
 
-DROP CONTRACT [//Media/Cdn/SetInvalidationContract]
+DROP SERVICE [//Media/Cdn/SetInvalidation]
 GO
 
-DROP SERVICE [//Media/Cdn/SetInvalidation]
+DROP CONTRACT [//Media/Cdn/SetInvalidationContract]
 GO
 
 DROP MESSAGE TYPE [//Media/Cdn/SetInvalidationMessage]
