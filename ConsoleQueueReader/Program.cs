@@ -27,11 +27,66 @@ namespace ConsoleQueueReader
 
             ProcessContentQueue(conn);
             ProcessMemberQueue(conn);
+            ProcessMediaQueue(conn);
 
             conn.Close();
 
             Console.WriteLine("Hit enter to exit.");
             Console.ReadLine();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="conn"></param>
+        private static void ProcessMediaQueue(SqlConnection conn)
+        {
+            Console.WriteLine("Checking Media Queue...");
+            SqlTransaction tran = conn.BeginTransaction();
+
+            var queue = new MediaQueue(conn);
+            SqlCommand command = queue.CreateReadCommand(tran);
+
+            int rows = command.ExecuteNonQuery();
+            if (rows > 0)
+            {
+                var bodyXml = (System.Data.SqlTypes.SqlXml)command.Parameters["@message_body"].SqlValue;
+                if (!bodyXml.IsNull)
+                {
+                    XElement messageBodyXml;
+                    string resource;
+                    string messageType = (string)command.Parameters["@message_type"].Value;
+                    Console.WriteLine(" -> Message: [" + messageType + "]");
+                    switch (messageType)
+                    {
+                        case "//Media/Cdn/SetInvalidationMessage":
+                            messageBodyXml = XElement.Parse(bodyXml.Value);
+                            resource = messageBodyXml.Elements().Where(p => p.Name == "resource").First().Value;
+
+                            /* Invoke CDN API to invalidate resource. */
+                            Console.WriteLine("     -> Resource: {0}", resource);
+                            tran.Commit();
+                            break;
+
+                        case "//Media/Cdn/SetPolicyMessage":
+                            messageBodyXml = XElement.Parse(bodyXml.Value);
+                            resource = messageBodyXml.Elements().Where(p => p.Name == "resource").First().Value;
+
+                            /* Invoke CDN API to set policy on a resource. */
+                            Console.WriteLine("     -> Resource: {0}", resource);
+                            tran.Commit();
+                            break;
+
+                        default:
+                            tran.Rollback();
+                            throw new InvalidOperationException("Unknown message type " + messageType);
+                    }
+                }
+            }
+            else
+            {
+                tran.Rollback();
+            }
         }
 
         /// <summary>
