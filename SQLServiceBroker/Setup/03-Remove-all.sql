@@ -55,6 +55,12 @@ GO
 DROP PROC dbo.ReadFromMediaQueue
 GO
 
+DROP PROC dbo.RequestCdnResourceInvalidation
+GO
+
+DROP PROC dbo.RequestCdnPolicyOnResource
+GO
+
 -- Media Queue DDL
 
 -- CDN Policy
