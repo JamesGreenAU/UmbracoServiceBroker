@@ -37,6 +37,7 @@ namespace ServiceBroker
 
             SqlTransaction tran = connection.BeginTransaction();
             var command = new SqlCommand("dbo.[SendMemberWelcomePack]", connection, tran);
+            command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.Add("@name", SqlDbType.NVarChar, 256);
             command.Parameters["@name"].Value = Name;
